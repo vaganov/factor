@@ -1,0 +1,5 @@
+*.o
+
+factor
+libfactor.so
+libfactor.a
