@@ -1,12 +1,12 @@
 CC = gcc
-CFLAGS = -c -O3 -ansi
+CFLAGS = -c -O3 -ansi -fPIC
 LIBS = -lpthread
 LDFLAGS = -shared -mimpure-text
 AR = ar
 ARFLAGS = -rc
 
-ess_objs = seek.o launch.o factor.o print.o
-objs = main.o $(ess_objs)
+ess_objs = seek.o launch.o factor.o
+objs = main.o print.o $(ess_objs)
 
 default: factor
 shared: libfactor.so
