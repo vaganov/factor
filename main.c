@@ -11,7 +11,10 @@ int main (int argc, char* argv[]) {
     degree d[15]; /* enough for n < 2^64 */
     uint64 r;
 
-    const uint64 benchmark[] = {(uint64) 2 * 3 * 5 * 7 * 11 * 13 * 17 * 19 * 23 * 29 * 31 * 37 * 41 * 43 * 47, (uint64) -59, ((uint64) 1 << 32) + 15, (((uint64) 1 << 32) - 5) * (((uint64) 1 << 32) - 5)};
+    const uint64 benchmark[] = {(uint64) 2 * 3 * 5 * 7 * 11 * 13 * 17 * 19 * 23 * 29 * 31 * 37 * 41 * 43 * 47,
+                                (uint64) - 59,
+                                ((uint64) 1 << 32) + 15,
+                                (((uint64) 1 << 32) - 5) * (((uint64) 1 << 32) - 5)};
 
     if (argc != 2) {
         printf("usage: %s NUMBER\n", argv[0]);

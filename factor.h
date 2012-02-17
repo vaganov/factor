@@ -4,6 +4,14 @@
 #include "typedef.h"
 #include "degree.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 uint32 factor (uint64, degree*, uint64*);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
