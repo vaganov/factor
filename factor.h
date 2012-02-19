@@ -1,14 +1,18 @@
 #ifndef _FACTOR_H
 #define _FACTOR_H
 
-#include "typedef.h"
-#include "degree.h"
+#include <stdint.h>
+
+struct degree {
+    uint32_t p;
+    uint32_t b;
+};
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-uint32 factor (uint64, degree*, uint64*);
+uint32_t factor (uint64_t, struct degree*, uint64_t*);
 
 #ifdef __cplusplus
 }

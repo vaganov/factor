@@ -1,11 +1,11 @@
 #ifndef _LAUNCH_ARG_H
 #define _LAUNCH_ARG_H
 
-#include "typedef.h"
+#include <stdint.h>
 
 typedef struct {
-    uint64 n;
-    uint32 a;
+    uint64_t n;
+    uint32_t a;
 } launch_arg;
 
 #endif

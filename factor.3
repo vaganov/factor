@@ -1,0 +1,63 @@
+.TH factor 3 "19 Feb. 2012"
+.SH NAME
+.B factor
+- factor integer into prime numbers
+.SH SYNOPSIS
+.B #include <factor.h>
+.P
+.B uint32_t factor (uint64_t
+.I n
+.B , struct degree*
+.I d
+.B , uint64_t*
+.I r
+.B );
+.SH DESCRIPTION
+.B factor()
+factors integer
+.I n
+into product of prime degrees; these prime degrees are stored in array
+.I d
+of
+.B struct degree
+, which consists of prime number
+.I p
+and integer degree
+.I b
+; prime degrees in
+.I d
+are sorted by
+.I p
+; besides,
+.I n
+can have
+.B the only
+prime divisor greater than
+.B 2^32
+; if
+.I n
+has one, its value is stored in
+.I *r
+, otherwise
+.I *r
+is set to
+.B 1
+; for
+.I n
+.B = 0
+.I *r
+is set to
+.B 0
+.SH RETURN VALUE
+total number of prime degrees stored in
+.I d
+is returned; this number does not exceed
+.B 15
+for
+.I n
+.B < 2^64
+.SH SEE ALSO
+.B factor
+(1)
+.SH AUTHORS
+Nikita Vaganov

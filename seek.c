@@ -1,7 +1,7 @@
 #include "seek.h"
 
-uint32 seek (uint64 n, uint32 a) {
-    uint64 _a;
+uint32_t seek (uint64_t n, uint32_t a) {
+    uint64_t _a;
     if (a == 0) {
         return 0;
     }

@@ -1,9 +1,9 @@
 #ifndef _PRINT_H
 #define _PRINT_H
 
-#include "typedef.h"
-#include "degree.h"
+#include <stdint.h>
+#include <factor.h>
 
-void print (uint32, const degree*, uint64);
+void print (uint32_t, const struct degree*, uint64_t);
 
 #endif

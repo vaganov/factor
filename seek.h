@@ -1,8 +1,8 @@
 #ifndef _SEEK_H
 #define _SEEK_H
 
-#include "typedef.h"
+#include <stdint.h>
 
-uint32 seek (uint64, uint32);
+uint32_t seek (uint64_t, uint32_t);
 
 #endif

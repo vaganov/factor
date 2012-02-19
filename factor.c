@@ -1,18 +1,18 @@
 #include <pthread.h>
-#include "factor.h"
+#include <factor.h>
 #include "launch_arg.h"
 #include "launch.h"
 #include "seek.h"
 
-uint32 factor (uint64 n, degree* d, uint64* r) {
-    uint32 k = 0;
-    uint32 i;
-    uint32 p;
-    uint32 b;
+uint32_t factor (uint64_t n, struct degree* d, uint64_t* r) {
+    uint32_t k = 0;
+    uint32_t i;
+    uint32_t p;
+    uint32_t b;
     pthread_t pid[7];
     launch_arg arg[7];
-    const uint32 a[] = {31, 7, 11, 13, 17, 19, 23, 29};
-    uint32 a7;
+    const uint32_t a[] = {31, 7, 11, 13, 17, 19, 23, 29};
+    uint32_t a7;
 
     if (n <= 1) {
         *r = n;
@@ -65,7 +65,7 @@ uint32 factor (uint64 n, degree* d, uint64* r) {
         p = a7 = seek(n, a7);
         for (i = 0; i < 7; ++i) {
             pthread_join(pid[i], 0);
-            if ((uint32) (arg[i].a - 1) < (uint32) (p - 1)) { /* (a != 0) && ((p == 0) || (a < p)) */
+            if ((uint32_t) (arg[i].a - 1) < (uint32_t) (p - 1)) { /* (a != 0) && ((p == 0) || (a < p)) */
                 p = arg[i].a;
             }
         }
