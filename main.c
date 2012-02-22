@@ -21,9 +21,6 @@ int main (int argc, char* argv[]) {
     char ch;
     int longind;
 
-    char endchar;
-    char* endptr = &endchar;
-
     int input = 0;
 
     char s[21]; /* enough for n < 2^64 */
