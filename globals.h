@@ -2,5 +2,6 @@
 #define _GLOBALS_H
 
 extern int raw;
+extern int linebreak;
 
 #endif
