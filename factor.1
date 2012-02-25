@@ -1,0 +1,35 @@
+.TH factor 1 "24 Feb. 2012"
+.SH NAME
+.B factor
+- print the prime factors of integer
+.SH SYNOPSIS
+.B factor [ [ \-\-raw ]
+.I NUMBER
+.B [
+.I NUMBER
+.B ... ] | \-\-benchmark | \-\-version | \-\-help ]
+.SH DESCRIPTION
+print the prime factors of each specified
+.I NUMBER
+; if none are specified, read them from standard input
+.SH OPTIONS
+.B \-\-raw, \-r
+- print prime factors in raw format (several times instead of form
+.I p
+.B ^
+.I b
+)
+.P
+.B \-\-benchmark
+- print some useful benchmarks and exit
+.P
+.B \-\-version, \-v
+- print version and exit
+.P
+.B \-\-help, \-h
+- print help message and exit
+.SH SEE ALSO
+.B factor
+(3)
+.SH AUTHOR
+Nikita Vaganov
