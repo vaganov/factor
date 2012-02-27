@@ -8,7 +8,7 @@ ARFLAGS = -rc
 lib_objs = seek.o launch.o factor.o
 bin_objs = main.o globals.o print.o
 
-default: factor
+default: factor libfactor.so
 shared: libfactor.so
 static: libfactor.a
 factor: $(bin_objs) libfactor.a Makefile
