@@ -1,20 +1,9 @@
-.TH factor 3 "24 Feb. 2012"
+.TH factor 3 "29 Feb. 2012"
 .SH NAME
 .B factor
-- factor integer into prime numbers
+- factor integer into prime degrees
 .SH SYNOPSIS
 .B #include <factor.h>
-.P
-.B struct degree {
-.P
-.B uint32_t
-.I p
-.B ,
-.P
-.B uint32_t
-.I b
-.P
-.B };
 .P
 .B uint32_t factor (uint64_t
 .I n
@@ -67,6 +56,11 @@ is returned; this number does not exceed
 for
 .I n
 .B < 2^64
+and
+.B 9
+for
+.I n
+.B < 2^32
 .SH SEE ALSO
 .B factor
 (1)
