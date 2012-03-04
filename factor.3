@@ -1,68 +1,15 @@
-.TH factor 3 "29 Feb. 2012"
+.TH factor 3 "4 Mar. 2012"
 .SH NAME
-.B factor
-- factor integer into prime degrees
+\fBfactor\fR \- factor integer into prime degrees
 .SH SYNOPSIS
-.B #include <factor.h>
+\fB#include <factor.h>
 .P
-.B uint32_t factor (uint64_t
-.I n
-.B , struct degree*
-.I d
-.B , uint64_t*
-.I r
-.B );
+\fBuint32_t factor (uint64_t \fIn\fB, struct degree* \fId\fB, uint64_t* \fIr\fB);
 .SH DESCRIPTION
-.B factor()
-factors integer
-.I n
-into product of prime degrees; these prime degrees are stored in array
-.I d
-of
-.B struct degree
-, which consists of prime number
-.I p
-and integer degree
-.I b
-; prime degrees in
-.I d
-are sorted by
-.I p
-; besides,
-.I n
-can have
-.B the only
-prime divisor greater than
-.B 2^32
-; if
-.I n
-has one, its value is stored in
-.I *r
-, otherwise
-.I *r
-is set to
-.B 1
-; for
-.I n
-.B = 0
-.I *r
-is set to
-.B 0
+\fBfactor()\fR factors integer \fIn\fR into product of prime degrees; these prime degrees are stored in array \fId \fRof \fBstruct degree\fR, which consists of prime number \fIp\fR and integer degree \fIb\fR; prime degrees in \fId\fR are sorted by \fIp\fR; besides, \fIn\fR can have \fBthe only\fR prime divisor greater than \fB2^32\fR; if \fIn\fR has one, its value is stored in \fB*\fIr\fR, otherwise \fB*\fIr\fR is set to \fB1\fR; for \fIn\fB = 0 *\fIr\fR is set to \fB0
 .SH RETURN VALUE
-total number of prime degrees stored in
-.I d
-is returned; this number does not exceed
-.B 15
-for
-.I n
-.B < 2^64
-and
-.B 9
-for
-.I n
-.B < 2^32
+total number of prime degrees stored in \fId\fR is returned; this number does not exceed \fB15\fR for \fIn\fB < 2^64\fR and \fB9\fR for \fIn\fB < 2^32
 .SH SEE ALSO
-.B factor
-(1)
+\fBfactor\fR(1)
 .SH AUTHOR
 Nikita Vaganov

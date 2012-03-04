@@ -1,40 +1,21 @@
-.TH factor 1 "29 Feb. 2012"
+.TH factor 1 "4 Mar. 2012"
 .SH NAME
-.B factor
-- print the prime factors of integer
+\fBfactor\fR \- print the prime factors of integer
 .SH SYNOPSIS
-.B factor [ [ \-\-raw ] [ \-\-linebreak ]
-.I NUMBER
-.B [
-.I NUMBER
-.B ... ] | \-\-benchmark | \-\-version | \-\-help ]
+\fBfactor [ [ \-\-raw ] [ \-\-linebreak ] \fINUMBER\fB [ \fINUMBER\fB ... ] | \-\-benchmark | \-\-version | \-\-help ]
 .SH DESCRIPTION
-print the prime factors of each specified
-.I NUMBER
-; if none are specified, read them from standard input
+print the prime factors of each specified \fINUMBER\fR; if none are specified, read them from standard input
 .SH OPTIONS
-.B \-\-raw, \-r
-- print prime factors in raw format (
-.I b
-times instead of form
-.I p
-.B ^
-.I b
-)
+\fB\-\-raw, \-r\fR \- print prime factors in raw format (\fIb\fR times instead of form \fIp\fR \fB^\fR \fIb\fR)
 .P
-.B \-\-linebreak, \-n
-- print prime factors on separate lines
+\fB\-\-linebreak, \-n\fR \- print prime factors on separate lines
 .P
-.B \-\-benchmark
-- print some useful benchmarks and exit
+\fB\-\-benchmark\fR \- print some useful benchmarks and exit
 .P
-.B \-\-version, \-v
-- print version and exit
+\fB\-\-version, \-v\fR \- print version and exit
 .P
-.B \-\-help, \-h
-- print help message and exit
+\fB\-\-help, \-h\fR \- print help message and exit
 .SH SEE ALSO
-.B factor
-(3)
+\fB factor\fR(3)
 .SH AUTHOR
 Nikita Vaganov
