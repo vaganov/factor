@@ -9,8 +9,10 @@
 #define NTHREADS 8
 #elif D == 60
 #define NTHREADS 16
+#elif D == 210
+#define NTHREADS 48
 #else
-#error D.h: only D = 30 or D = 60 supported
+#error D.h: only D = 30, D = 60 or D = 210 supported
 #endif
 
 uint32_t factor (uint64_t n, struct degree* d, uint64_t* r) {
@@ -21,9 +23,20 @@ uint32_t factor (uint64_t n, struct degree* d, uint64_t* r) {
     pthread_t pid[NTHREADS]; /* pid[0] not used */
     launch_arg arg[NTHREADS]; /* arg[0] not used */
     const uint32_t a[] = {
-        1 + D, 7, 11, 13, 17, 19, 23, 29
+        1 + D
+#if D % 7 != 0
+        ,7
+#endif
+        , 11, 13, 17, 19, 23, 29
 #if D >= 60
-        ,31, 37, 41, 43, 47, 49 + D, 53, 59
+        , 31, 37, 41, 43, 47
+#if D % 7 != 0
+        , 49 + D
+#endif
+        , 53, 59
+#endif
+#if D >= 210
+        , 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 121 + D, 127, 131, 137, 139, 143 + D, 149, 151, 157, 163, 167, 169 + D, 173, 179, 181, 187 + D, 191, 193, 197, 199, 209 + D
 #endif
     };
     uint32_t a0;
@@ -32,7 +45,7 @@ uint32_t factor (uint64_t n, struct degree* d, uint64_t* r) {
         *r = n;
         return k;
     }
-
+#if D % 2 == 0
     b = 0;
     while (n % 2 == 0) {
         n /= 2;
@@ -43,7 +56,8 @@ uint32_t factor (uint64_t n, struct degree* d, uint64_t* r) {
         d[k].b = b;
         ++k;
     }
-
+#endif
+#if D % 3 == 0
     b = 0;
     while (n % 3 == 0) {
         n /= 3;
@@ -54,7 +68,8 @@ uint32_t factor (uint64_t n, struct degree* d, uint64_t* r) {
         d[k].b = b;
         ++k;
     }
-
+#endif
+#if D % 5 == 0
     b = 0;
     while (n % 5 == 0) {
         n /= 5;
@@ -65,7 +80,19 @@ uint32_t factor (uint64_t n, struct degree* d, uint64_t* r) {
         d[k].b = b;
         ++k;
     }
-
+#endif
+#if D % 7 == 0
+    b = 0;
+    while (n % 7 == 0) {
+        n /= 7;
+        ++b;
+    }
+    if (b != 0) {
+        d[k].p = 7;
+        d[k].b = b;
+        ++k;
+    }
+#endif
     for (i = NTHREADS - 1; i != 0; --i) {
         arg[i].a = a[i];
     }
