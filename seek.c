@@ -1,4 +1,5 @@
 #include "seek.h"
+#include "D.h"
 
 uint32_t seek (uint64_t n, uint32_t a) {
     uint64_t _a;
@@ -9,8 +10,8 @@ uint32_t seek (uint64_t n, uint32_t a) {
         if (n % a == 0) {
             return a;
         }
-        a += 30;
-        if (a < 30) {
+        a += D;
+        if (a < D) {
             return 0;
         }
         _a = a;

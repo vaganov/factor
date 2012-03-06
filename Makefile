@@ -19,11 +19,11 @@ libfactor.a: $(lib_objs) Makefile
 	$(AR) $(ARFLAGS) libfactor.a $(lib_objs)
 main.o: main.c factor.h print.h globals.h Makefile
 	$(CC) $(CFLAGS) main.c -o main.o
-seek.o: seek.c seek.h Makefile
+seek.o: seek.c seek.h D.h Makefile
 	$(CC) $(CFLAGS) seek.c -o seek.o
 launch.o: launch.c launch.h launch_arg.h seek.h Makefile
 	$(CC) $(CFLAGS) launch.c -o launch.o
-factor.o: factor.c factor.h launch_arg.h launch.h seek.h Makefile
+factor.o: factor.c factor.h launch_arg.h launch.h seek.h D.h Makefile
 	$(CC) $(CFLAGS) factor.c -o factor.o
 print.o: print.c print.h factor.h globals.h Makefile
 	$(CC) $(CFLAGS) print.c -o print.o
