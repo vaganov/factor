@@ -5,7 +5,7 @@ LDFLAGS = -shared -mimpure-text
 AR = ar
 ARFLAGS = -rc
 
-lib_objs = seek.o launch.o factor.o
+lib_objs = seek.o launch.o factor_thread_routine.o factor.o factor_globals.o
 bin_objs = main.o globals.o print.o
 
 default: factor libfactor.so
@@ -23,8 +23,12 @@ seek.o: seek.c seek.h D.h Makefile
 	$(CC) $(CFLAGS) seek.c -o seek.o
 launch.o: launch.c launch.h launch_arg.h seek.h Makefile
 	$(CC) $(CFLAGS) launch.c -o launch.o
-factor.o: factor.c factor.h launch_arg.h launch.h seek.h D.h Makefile
+factor_thread_routine.o: factor_thread_routine.c factor_thread_routine.h factor_thread_routine_arg.h seek.h Makefile
+	$(CC) $(CFLAGS) factor_thread_routine.c -o factor_thread_routine.o
+factor.o: factor.c factor.h launch_arg.h launch.h seek.h D.h factor_thread_routine_arg.h factor_thread_routine.h Makefile
 	$(CC) $(CFLAGS) factor.c -o factor.o
+factor_globals.o: factor_globals.c factor.h Makefile
+	$(CC) $(CFLAGS) factor_globals.c -o factor_globals.o
 print.o: print.c print.h factor.h globals.h Makefile
 	$(CC) $(CFLAGS) print.c -o print.o
 globals.o: globals.c globals.h Makefile

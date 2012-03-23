@@ -47,7 +47,7 @@ int main (int argc, char* argv[]) {
                 printf("\t--%s, -%c\t\tprint this message and exit\n", longopts[0].name, longopts[0].val);
                 return 0;
             case 'v':
-                printf("%s v. 1.2\n", argv[0]);
+                printf("%s v. 1.3\n", argv[0]);
                 return 0;
             case 'r':
                 raw = 1;

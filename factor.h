@@ -8,6 +8,8 @@ struct degree {
     uint32_t b;
 };
 
+extern uint32_t factor_threads;
+
 #ifdef __cplusplus
 extern "C" {
 #endif
