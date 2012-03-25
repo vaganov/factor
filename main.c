@@ -17,6 +17,7 @@ int main (int argc, char* argv[]) {
         {"raw", no_argument, 0, 'r'},
         {"benchmark", no_argument, 0, 'B'},
         {"linebreak", no_argument, 0, 'n'},
+        {"threads", required_argument, 0, 'j'},
         {0, 0, 0, 0}
     };
     char ch;
@@ -29,10 +30,11 @@ int main (int argc, char* argv[]) {
     while ((ch = getopt_long(argc, argv, "hvrn", longopts, &longind)) != -1) {
         switch (ch) {
             case 'h':
-                printf("%s [ [ --%s ] [ --%s ] NUMBER [ NUMBER ... ] | --%s | --%s | --%s ]\n",
+                printf("%s [ [ --%s ] [ --%s ] [ --%s=NUMBER ] NUMBER [ NUMBER ... ] | --%s | --%s | --%s ]\n",
                     argv[0],
                     longopts[2].name,
                     longopts[4].name,
+                    longopts[5].name,
                     longopts[3].name,
                     longopts[1].name,
                     longopts[0].name);
@@ -42,6 +44,7 @@ int main (int argc, char* argv[]) {
                 printf("\n");
                 printf("\t--%s, -%c\t\tprint prime factors in raw format\n", longopts[2].name, longopts[2].val);
                 printf("\t--%s, -%c\t\tprint prime factors on separate lines\n", longopts[4].name, longopts[4].val);
+                printf("\t--%s=NUMBER\tsplit into NUMBER threads (unlimited by default)\n", longopts[5].name);
                 printf("\t--%s\t\tprint some useful benchmarks and exit\n", longopts[3].name);
                 printf("\t--%s, -%c\t\tprint version and exit\n", longopts[1].name, longopts[1].val);
                 printf("\t--%s, -%c\t\tprint this message and exit\n", longopts[0].name, longopts[0].val);
@@ -63,6 +66,11 @@ int main (int argc, char* argv[]) {
                 return 0;
             case 'n':
                 linebreak = 1;
+                break;
+            case 'j':
+                if (!sscanf(optarg, "%u", &factor_threads)) {
+                    printf("\"%s\": incorrect argument\n", optarg);
+                }
                 break;
         }
     }

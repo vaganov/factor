@@ -1,14 +1,16 @@
-.TH factor 1 "4 Mar. 2012"
+.TH factor 1 "25 Mar. 2012"
 .SH NAME
 \fBfactor\fR \- print the prime factors of integer
 .SH SYNOPSIS
-\fBfactor [ [ \-\-raw ] [ \-\-linebreak ] \fINUMBER\fB [ \fINUMBER\fB ... ] | \-\-benchmark | \-\-version | \-\-help ]
+\fBfactor [ [ \-\-raw ] [ \-\-linebreak ] [ \-\-threads=\fINUMBER\fB ] \fINUMBER\fB [ \fINUMBER\fB ... ] | \-\-benchmark | \-\-version | \-\-help ]
 .SH DESCRIPTION
 print the prime factors of each specified \fINUMBER\fR; if none are specified, read them from standard input
 .SH OPTIONS
 \fB\-\-raw, \-r\fR \- print prime factors in raw format (\fIb\fR times instead of form \fIp\fR \fB^\fR \fIb\fR)
 .P
 \fB\-\-linebreak, \-n\fR \- print prime factors on separate lines
+.P
+\fB\-\-threads=\fINUMBER\fR \- split into \fINUMBER\fR threads (unlimited by default)
 .P
 \fB\-\-benchmark\fR \- print some useful benchmarks and exit
 .P
