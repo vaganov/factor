@@ -26,7 +26,7 @@ seek.o: seek.c seek.h D.h Makefile
 	$(CC) $(CFLAGS) seek.c -o seek.o
 factor_thread_routine.o: factor_thread_routine.c factor_thread_routine.h factor_thread_routine_arg.h seek.h Makefile
 	$(CC) $(CFLAGS) factor_thread_routine.c -o factor_thread_routine.o
-factor.o: factor.c factor.h D.h a.h factor_thread_routine_arg.h factor_thread_routine.h Makefile
+factor.o: factor.c factor.h D.h a.csv factor_thread_routine_arg.h factor_thread_routine.h Makefile
 	$(CC) $(CFLAGS) factor.c -o factor.o
 factor_globals.o: factor_globals.c factor.h Makefile
 	$(CC) $(CFLAGS) factor_globals.c -o factor_globals.o
@@ -34,7 +34,7 @@ print.o: print.c print.h factor.h globals.h Makefile
 	$(CC) $(CFLAGS) print.c -o print.o
 globals.o: globals.c globals.h Makefile
 	$(CC) $(CFLAGS) globals.c -o globals.o
-bootstrap.o: bootstrap.c factor.h Makefile
+bootstrap.o: bootstrap.c factor.h small_primes.csv Makefile
 	$(CC) $(CFLAGS) bootstrap.c -o bootstrap.o
 clean:
 	rm -f $(lib_objs)

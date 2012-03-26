@@ -10,9 +10,13 @@ uint32_t factor (uint64_t n, struct degree* d, uint64_t* r) {
     uint32_t p;
     uint32_t b;
     uint32_t a[] = {
-#include "a.h"
+#include "a.csv"
     };
     const uint32_t phi = sizeof(a) / sizeof(uint32_t);
+    const uint32_t small_primes[] = {
+#include "small_primes.csv"
+    };
+    const uint32_t K = sizeof(small_primes) / sizeof(uint32_t);
     pthread_t pid[phi - 1];
     pthread_mutex_t mutex;
     struct factor_thread_routine_arg arg;
@@ -24,66 +28,18 @@ uint32_t factor (uint64_t n, struct degree* d, uint64_t* r) {
         }
         return k;
     }
-#if D % 2 == 0
-    b = 0;
-    while (n % 2 == 0) {
-        n /= 2;
-        ++b;
+    for (i = 0; i < K; ++i) {
+        b = 0;
+        while (n % small_primes[i] == 0) {
+            n /= small_primes[i];
+            ++b;
+        }
+        if (b != 0) {
+            d[k].p = small_primes[i];
+            d[k].b = b;
+            ++k;
+        }
     }
-    if (b != 0) {
-        d[k].p = 2;
-        d[k].b = b;
-        ++k;
-    }
-#endif
-#if D % 3 == 0
-    b = 0;
-    while (n % 3 == 0) {
-        n /= 3;
-        ++b;
-    }
-    if (b != 0) {
-        d[k].p = 3;
-        d[k].b = b;
-        ++k;
-    }
-#endif
-#if D % 5 == 0
-    b = 0;
-    while (n % 5 == 0) {
-        n /= 5;
-        ++b;
-    }
-    if (b != 0) {
-        d[k].p = 5;
-        d[k].b = b;
-        ++k;
-    }
-#endif
-#if D % 7 == 0
-    b = 0;
-    while (n % 7 == 0) {
-        n /= 7;
-        ++b;
-    }
-    if (b != 0) {
-        d[k].p = 7;
-        d[k].b = b;
-        ++k;
-    }
-#endif
-#if D % 11 == 0
-    b = 0;
-    while (n % 11 == 0) {
-        n /= 11;
-        ++b;
-    }
-    if (b != 0) {
-        d[k].p = 11;
-        d[k].b = b;
-        ++k;
-    }
-#endif
     pthread_mutex_init(&mutex, 0);
     arg.mutex = &mutex;
     arg.a = a;
