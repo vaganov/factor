@@ -15,7 +15,6 @@ default: factor libfactor.so
 shared: libfactor.so
 static: libfactor.a
 factor: $(bin_objs) libfactor.a Makefile
-#	$(CC) $(LIBS) $(bin_objs) libfactor.a -o factor
 	$(CXX) $(LIBS) $(bin_objs) libfactor.a -o factor
 libfactor.so: $(lib_objs) Makefile
 	$(CC) $(LDFLAGS) $(LIBS) $(lib_objs) -o libfactor.so
@@ -23,8 +22,6 @@ libfactor.a: $(lib_objs) Makefile
 	$(AR) $(ARFLAGS) libfactor.a $(lib_objs)
 bootstrap: $(bootstrap_obj) libfactor.a Makefile
 	$(CC) $(LIBS) $(bootstrap_obj) libfactor.a -o bootstrap
-#main.o: main.c factor.h print.h globals.h Makefile
-#	$(CC) $(CFLAGS) main.c -o main.o
 main.o: main.cxx factor.h print.h globals.h Makefile
 	$(CXX) $(CXXFLAGS) main.cxx -o main.o
 seek.o: seek.c seek.h D.h Makefile
@@ -35,12 +32,8 @@ factor.o: factor.c factor.h D.h a.csv factor_thread_routine_arg.h factor_thread_
 	$(CC) $(CFLAGS) factor.c -o factor.o
 factor_globals.o: factor_globals.c factor.h Makefile
 	$(CC) $(CFLAGS) factor_globals.c -o factor_globals.o
-#print.o: print.c print.h factor.h globals.h Makefile
-#	$(CC) $(CFLAGS) print.c -o print.o
 print.o: print.cxx print.h factor.h globals.h Makefile
 	$(CXX) $(CXXFLAGS) print.cxx -o print.o
-#globals.o: globals.c globals.h Makefile
-#	$(CC) $(CFLAGS) globals.c -o globals.o
 globals.o: globals.cxx globals.h Makefile
 	$(CXX) $(CXXFLAGS) globals.cxx -o globals.o
 bootstrap.o: bootstrap.c factor.h small_primes.csv Makefile
