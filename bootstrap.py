@@ -1,11 +1,11 @@
 #!/usr/bin/python
 
 file = open("small_primes.csv", "r")
-small_primes_string = file.readline()
+string = file.readline()
 file.close()
 small_primes = []
-for small_primes_string_substring in small_primes_string.split(", "):
-    small_primes.append(int(small_primes_string_substring))
+for substring in string.split(", "):
+    small_primes.append(int(substring))
 P = 1
 for p in small_primes:
     P *= p
