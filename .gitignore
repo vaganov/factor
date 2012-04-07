@@ -3,4 +3,5 @@
 factor
 libfactor.so
 libfactor.a
-bootstrap
+D.h
+a.csv

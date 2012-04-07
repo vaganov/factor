@@ -1,5 +1,6 @@
 #include <getopt.h>
 #include <iostream>
+#include <stdio.h>
 #include <factor.h>
 #include "globals.h"
 #include "print.h"
