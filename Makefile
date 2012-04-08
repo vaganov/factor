@@ -5,7 +5,7 @@ LDFLAGS = -shared -mimpure-text
 AR = ar
 ARFLAGS = -rc
 
-lib_objs = seek.o factor_thread_routine.o factor.o set_factor_threads.o factor_globals.o
+lib_objs = seek.o factor_thread_routine.o factor.o set_factor_threads.o factor_globals.o factor_threads_mutex.o
 
 default: libfactor.so libfactor.a
 shared: libfactor.so
@@ -24,6 +24,8 @@ set_factor_threads.o: set_factor_threads.c factor.h factor_globals.h
 	$(CC) $(CFLAGS) set_factor_threads.c -o set_factor_threads.o
 factor_globals.o: factor_globals.c factor_globals.h Makefile
 	$(CC) $(CFLAGS) factor_globals.c -o factor_globals.o
+factor_threads_mutex.o: factor_threads_mutex.c factor_globals.h Makefile
+	$(CC) $(CFLAGS) factor_threads_mutex.c -o factor_threads_mutex.o
 D.h:	bootstrap small_primes.csv
 	./bootstrap
 a.csv:	bootstrap small_primes.csv

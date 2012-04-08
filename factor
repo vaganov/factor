@@ -12,7 +12,12 @@ parser.add_option("--raw", "-r",
                   dest = "raw",
                   default = False,
                   help = "print prime factors in raw format")
-parser.add_option("--threads",
+parser.add_option("--linebreak", "-n",
+                  action = "store_true",
+                  dest = "linebreak",
+                  default = False,
+                  help = "print prime factors on separate lines")
+parser.add_option("--threads", "-j",
                   action = "store",
                   type = "int",
                   dest = "threads",

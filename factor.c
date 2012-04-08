@@ -21,7 +21,15 @@ uint32_t factor (uint64_t n, struct degree* d, uint64_t* r) {
     pthread_t pid[phi - 1];
     pthread_mutex_t mutex;
     struct factor_thread_routine_arg arg;
-    uint32_t threads = factor_threads;
+    uint32_t threads;
+
+#if USE_THREADS_MUTEX
+    pthread_mutex_lock(&factor_threads_mutex);
+#endif
+    threads = factor_threads;
+#if USE_THREADS_MUTEX
+    pthread_mutex_unlock(&factor_threads_mutex);
+#endif
 
     if (n <= 1) {
         if (r != 0) {
