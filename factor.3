@@ -1,19 +1,15 @@
-.TH factor 3 "25 Mar. 2012"
+.TH factor 3 "8 Apr. 2012"
 .SH NAME
 \fBfactor\fR \- factor integer into prime degrees
 .SH SYNOPSIS
 \fB#include <factor.h>
 .P
-\fBextern uint32_t factor_threads;
-.P
 \fBuint32_t factor (uint64_t \fIn\fB, struct degree* \fId\fB, uint64_t* \fIr\fB);
 .SH DESCRIPTION
 \fBfactor()\fR factors integer \fIn\fR into product of prime degrees; these prime degrees are stored in array \fId \fRof \fBstruct degree\fR, which consists of prime number \fIp\fR and integer degree \fIb\fR; prime degrees in \fId\fR are sorted by \fIp\fR; besides, \fIn\fR can have \fBthe only\fR prime divisor greater than \fB2^32\fR; if \fIn\fR has one, its value is stored in \fB*\fIr\fR, otherwise \fB*\fIr\fR is set to \fB1\fR; for \fIn\fB = 0 *\fIr\fR is set to \fB0\fR; also \fIr\fR can be passed as null pointer (e.g. for \fIn\fB < 2^32\fR)
-.P
-If \fBfactor_threads = 0\fR, \fBfactor()\fR will not limit number of threads; if \fBfactor_threads > 0\fR, \fBfactor()\fR will not split into more than \fBfactor_threads\fR threads; thus, if \fBfactor_threads = 1\fR, no new threads will be created; by default \fBfactor_threads = 0\fR
 .SH RETURN VALUE
 total number of prime degrees stored in \fId\fR is returned; this number does not exceed \fB15\fR for \fIn\fB < 2^64\fR and \fB9\fR for \fIn\fB < 2^32
 .SH SEE ALSO
-\fBfactor\fR(1)
+\fBfactor\fR(1); \fBset_factor_threads\fR(3)
 .SH AUTHOR
 Nikita Vaganov

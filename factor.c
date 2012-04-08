@@ -1,6 +1,7 @@
 #include <pthread.h>
-#include <factor.h>
+#include "factor.h"
 #include "D.h"
+#include "factor_globals.h"
 #include "factor_thread_routine_arg.h"
 #include "factor_thread_routine.h"
 

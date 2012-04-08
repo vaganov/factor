@@ -1,7 +1,7 @@
 #include <getopt.h>
 #include <iostream>
 #include <stdio.h>
-#include <factor.h>
+#include "factor.h"
 #include "globals.h"
 #include "print.h"
 
@@ -50,7 +50,11 @@ int main (int argc, char* argv[]) {
                 linebreak = true;
                 break;
             case 'j':
-                if (sscanf(optarg, "%u", &factor_threads) == 0) {
+                uint32_t threads;
+                if (sscanf(optarg, "%u", &threads) != 0) {
+                    set_factor_threads(threads);
+                }
+                else {
                     std::cout << "\"" << optarg << "\": incorrect argument\n";
                 }
                 break;

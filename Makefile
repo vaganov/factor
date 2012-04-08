@@ -7,7 +7,7 @@ LDFLAGS = -shared -mimpure-text
 AR = ar
 ARFLAGS = -rc
 
-lib_objs = seek.o factor_thread_routine.o factor.o factor_globals.o
+lib_objs = seek.o factor_thread_routine.o factor.o set_factor_threads.o factor_globals.o
 bin_objs = main.o globals.o print.o
 
 default: factor libfactor.so
@@ -25,9 +25,11 @@ seek.o: seek.c seek.h D.h Makefile
 	$(CC) $(CFLAGS) seek.c -o seek.o
 factor_thread_routine.o: factor_thread_routine.c factor_thread_routine.h factor_thread_routine_arg.h seek.h Makefile
 	$(CC) $(CFLAGS) factor_thread_routine.c -o factor_thread_routine.o
-factor.o: factor.c factor.h D.h small_primes.csv a.csv factor_thread_routine_arg.h factor_thread_routine.h Makefile
+factor.o: factor.c factor.h D.h small_primes.csv a.csv factor_globals.h factor_thread_routine_arg.h factor_thread_routine.h Makefile
 	$(CC) $(CFLAGS) factor.c -o factor.o
-factor_globals.o: factor_globals.c factor.h Makefile
+set_factor_threads.o: set_factor_threads.c factor.h factor_globals.h
+	$(CC) $(CFLAGS) set_factor_threads.c -o set_factor_threads.o
+factor_globals.o: factor_globals.c factor_globals.h Makefile
 	$(CC) $(CFLAGS) factor_globals.c -o factor_globals.o
 print.o: print.cxx print.h factor.h globals.h Makefile
 	$(CXX) $(CXXFLAGS) print.cxx -o print.o
