@@ -32,3 +32,5 @@ a.csv:	bootstrap small_primes.csv
 	./bootstrap
 clean:
 	rm -f $(lib_objs)
+	rm -f D.h
+	rm -f a.csv
