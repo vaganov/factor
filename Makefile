@@ -24,9 +24,9 @@ set_factor_threads.o: set_factor_threads.c factor.h factor_globals.h
 	$(CC) $(CFLAGS) set_factor_threads.c -o set_factor_threads.o
 factor_globals.o: factor_globals.c factor_globals.h Makefile
 	$(CC) $(CFLAGS) factor_globals.c -o factor_globals.o
-D.h:	bootstrap.py small_primes.csv
-	./bootstrap.py
-a.csv:	bootstrap.py small_primes.csv
-	./bootstrap.py
+D.h:	bootstrap small_primes.csv
+	./bootstrap
+a.csv:	bootstrap small_primes.csv
+	./bootstrap
 clean:
 	rm -f $(lib_objs)
