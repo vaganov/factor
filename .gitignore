@@ -1,6 +1,5 @@
 *.o
 
-factor
 libfactor.so
 libfactor.a
 D.h
