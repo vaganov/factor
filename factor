@@ -36,16 +36,7 @@ def main ():
     (options, args) = parser.parse_args()
 
     if options.benchmark:
-        benchmark = [2 ** 64 - 59,
-                     (2 ** 32 - 5) ** 2,
-                     2 * 3 * 5 * 7 * 11 * 13 * 17 * 19 * 23 * 29 * 31 * 37 * 41 * 43 * 47,
-                     2 ** 32 + 15]
-        sys.stdout.write("these should require the greatest amount of time:\n")
-        sys.stdout.write("%d = 2^64 - 59 (the largest prime number < 2^64)\n" % benchmark[0])
-        sys.stdout.write("%d = (2^32 - 5)^2 (the largest prime square < 2^64)\n" % benchmark[1])
-        sys.stdout.write("these are rather technological:\n")
-        sys.stdout.write("%d = 2 * 3 * 5 * 7 * 11 * 13 * 17 * 19 * 23 * 29 * 31 * 37 * 41 * 43 * 47\n" % benchmark[2])
-        sys.stdout.write("%d = 2^32 + 15 (the first prime number > 2^32)\n" % benchmark[3])
+        print_benchmark()
         return 0
 
     libfactor = cdll.LoadLibrary("libfactor.so")
@@ -129,6 +120,21 @@ def print_factorization (n, k, d, r, linebreak, raw, print_input):
             sys.stdout.write("\n")
     if not linebreak:
         sys.stdout.write("\n")
+
+def print_benchmark ():
+    benchmark = [2 ** 64 - 59,
+                 (2 ** 32 - 5) ** 2,
+                 2 * 3 * 5 * 7 * 11 * 13 * 17 * 19 * 23 * 29 * 31 * 37 * 41 * 43 * 47,
+                 2 ** 32 + 15,
+                 10 ** 14 - 41]
+    sys.stdout.write("these should require the greatest amount of time:\n")
+    sys.stdout.write("%d = 2^64 - 59 (the largest prime number < 2^64)\n" % benchmark[0])
+    sys.stdout.write("%d = (2^32 - 5)^2 (the largest prime square < 2^64)\n" % benchmark[1])
+    sys.stdout.write("these are rather technological:\n")
+    sys.stdout.write("%d = 2 * 3 * 5 * 7 * 11 * 13 * 17 * 19 * 23 * 29 * 31 * 37 * 41 * 43 * 47\n" % benchmark[2])
+    sys.stdout.write("%d = 2^32 + 15 (the first prime number > 2^32)\n" % benchmark[3])
+    sys.stdout.write("this one is Solaris-specific\n")
+    sys.stdout.write("%d = 10^14 - 41 (the largest prime number < 10^14)\n" % benchmark[4])
 
 if __name__ == "__main__":
     main()
