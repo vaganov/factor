@@ -39,7 +39,11 @@ def main ():
         print_benchmark()
         return 0
 
-    libfactor = cdll.LoadLibrary("libfactor.so")
+    try:
+        libfactor = cdll.LoadLibrary("libfactor.so")
+    except OSError:
+        sys.stderr.write("cannot open libfactor.so\n")
+        return 1
 
     if options.threads != None:
         threads = c_uint32(options.threads)
@@ -54,14 +58,41 @@ def main ():
 
     if len(args) == 0:
         while True:
-            n = c_uint64(long(raw_input()))
-            d = (degree * 15)() # enough for n < 2^64
-            r = c_uint64()
-            k = factor(n, d, byref(r))
-            print_factorization(n, k, d, r, options.linebreak, options.raw, False)
+            try:
+                arg = raw_input()
+                try:
+                    number = long(arg)
+                except ValueError:
+                    sys.stderr.write("\"%s\": incorrect input\n" % arg)
+                    continue
+                if number < 0:
+                    sys.stderr.write("%d is not a positive number\n" % number)
+                    continue
+                if number >= 2 ** 64:
+                    sys.stderr.write("%d is too large\n" % number)
+                    continue
+                n = c_uint64(number)
+                d = (degree * 15)() # enough for n < 2^64
+                r = c_uint64()
+                k = factor(n, d, byref(r))
+                print_factorization(n, k, d, r, options.linebreak, options.raw, False)
+            except KeyboardInterrupt:
+                sys.stdout.write("\n")
+                return 0
     else:
         for arg in args:
-            n = c_uint64(long(arg))
+            try:
+                number = long(arg)
+            except ValueError:
+                sys.stderr.write("\"%s\": incorrect input\n" % arg)
+                continue
+            if number < 0:
+                sys.stderr.write("%d is not a positive number\n" % number)
+                continue
+            if number >= 2 ** 64:
+                sys.stderr.write("%d is too large\n" % number)
+                continue
+            n = c_uint64(number)
             d = (degree * 15)() # enough for n < 2^64
             r = c_uint64()
             k = factor(n, d, byref(r))
