@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import sys
+import os
 from ctypes import *
 from optparse import OptionParser
 
@@ -26,8 +27,9 @@ def main ():
                       action = "store",
                       type = "int",
                       dest = "threads",
+                      default = os.sysconf('SC_NPROCESSORS_ONLN'),
                       metavar = "NUMBER",
-                      help = "split into NUMBER threads (unlimited by default)")
+                      help = "split into NUMBER threads (number of processors by default)")
     parser.add_option("--benchmark",
                       action = "store_true",
                       dest = "benchmark",
@@ -46,12 +48,11 @@ def main ():
         sys.stderr.write("cannot link \"%s\" (check LD_LIBRARY_PATH)\n" % libname)
         return 1
 
-    if options.threads != None:
-        threads = c_uint32(options.threads)
-        set_factor_threads = libfactor.set_factor_threads # factor.h
-        set_factor_threads.argtypes = [c_uint32]
-        set_factor_threads.restype = None
-        set_factor_threads(threads)
+    threads = c_uint32(options.threads)
+    set_factor_threads = libfactor.set_factor_threads # factor.h
+    set_factor_threads.argtypes = [c_uint32]
+    set_factor_threads.restype = None
+    set_factor_threads(threads)
 
     factor = libfactor.factor # factor.h
     factor.argtypes = [c_uint64, POINTER(degree), POINTER(c_uint64)]
