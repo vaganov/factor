@@ -4,13 +4,13 @@ import sys
 from ctypes import *
 from optparse import OptionParser
 
-class degree(Structure): # factor.h
+class degree (Structure): # factor.h
     _fields_ = [("p", c_uint32),
                 ("b", c_uint32)]
 
 def main ():
     usage = "%prog [ [ --raw ] [ --linebreak ] [ --threads=NUMBER ] NUMBER [ NUMBER ... ] | --benchmark | --version | --help ]"
-    version = "%prog 1.5"
+    version = "%prog 1.6"
     parser = OptionParser(usage = usage, version = version)
     parser.add_option("--raw", "-r",
                       action = "store_true",
@@ -39,10 +39,11 @@ def main ():
         print_benchmark()
         return 0
 
+    libname = "libfactor.so"
     try:
-        libfactor = cdll.LoadLibrary("libfactor.so")
+        libfactor = cdll.LoadLibrary(libname)
     except OSError:
-        sys.stderr.write("cannot open libfactor.so\n")
+        sys.stderr.write("cannot link \"%s\" (check LD_LIBRARY_PATH)\n" % libname)
         return 1
 
     if options.threads != None:
@@ -60,44 +61,40 @@ def main ():
         while True:
             try:
                 arg = raw_input()
-                try:
-                    number = long(arg)
-                except ValueError:
-                    sys.stderr.write("\"%s\": incorrect input\n" % arg)
-                    continue
-                if number < 0:
-                    sys.stderr.write("%d is not a positive number\n" % number)
-                    continue
-                if number >= 2 ** 64:
-                    sys.stderr.write("%d is too large\n" % number)
-                    continue
-                n = c_uint64(number)
-                d = (degree * 15)() # enough for n < 2^64
-                r = c_uint64()
-                k = factor(n, d, byref(r))
-                print_factorization(n, k, d, r, options.linebreak, options.raw, False)
             except KeyboardInterrupt:
                 sys.stdout.write("\n")
                 return 0
+            (valid, n) = str_to_uint64(arg)
+            if not valid:
+                continue
+            d = (degree * 15)() # enough for n < 2^64
+            r = c_uint64()
+            k = factor(n, d, byref(r))
+            print_factorization(n, k, d, r, options.linebreak, options.raw, False)
     else:
         for arg in args:
-            try:
-                number = long(arg)
-            except ValueError:
-                sys.stderr.write("\"%s\": incorrect input\n" % arg)
+            (valid, n) = str_to_uint64(arg)
+            if not valid:
                 continue
-            if number < 0:
-                sys.stderr.write("%d is not a positive number\n" % number)
-                continue
-            if number >= 2 ** 64:
-                sys.stderr.write("%d is too large\n" % number)
-                continue
-            n = c_uint64(number)
             d = (degree * 15)() # enough for n < 2^64
             r = c_uint64()
             k = factor(n, d, byref(r))
             print_factorization(n, k, d, r, options.linebreak, options.raw, True)
         return 0
+
+def str_to_uint64 (string):
+    try:
+        number = long(string)
+    except ValueError:
+        sys.stderr.write("\"%s\": incorrect input\n" % string)
+        return (False, None)
+    if number < 0:
+        sys.stderr.write("%d is negative\n" % number)
+        return (False, None)
+    if number >= 2 ** 64:
+        sys.stderr.write("%d is too large (must be less than 2 ^ 64)\n" % number)
+        return (False, None)
+    return (True, c_uint64(number))
 
 def print_factorization (n, k, d, r, linebreak, raw, print_input):
     if print_input:
@@ -157,15 +154,17 @@ def print_benchmark ():
                  (2 ** 32 - 5) ** 2,
                  2 * 3 * 5 * 7 * 11 * 13 * 17 * 19 * 23 * 29 * 31 * 37 * 41 * 43 * 47,
                  2 ** 32 + 15,
-                 10 ** 14 - 41]
+                 10 ** 14 - 41,
+                 (10 ** 7 - 9) ** 2]
     sys.stdout.write("these should require the greatest amount of time:\n")
     sys.stdout.write("%d = 2^64 - 59 (the largest prime number < 2^64)\n" % benchmark[0])
     sys.stdout.write("%d = (2^32 - 5)^2 (the largest prime square < 2^64)\n" % benchmark[1])
     sys.stdout.write("these are rather technological:\n")
     sys.stdout.write("%d = 2 * 3 * 5 * 7 * 11 * 13 * 17 * 19 * 23 * 29 * 31 * 37 * 41 * 43 * 47\n" % benchmark[2])
     sys.stdout.write("%d = 2^32 + 15 (the first prime number > 2^32)\n" % benchmark[3])
-    sys.stdout.write("this one is Solaris-specific\n")
+    sys.stdout.write("these are Solaris-specific\n")
     sys.stdout.write("%d = 10^14 - 41 (the largest prime number < 10^14)\n" % benchmark[4])
+    sys.stdout.write("%d = (10^7 - 9)^2 (the largest prime square < 10^14)\n" % benchmark[5])
 
 if __name__ == "__main__":
     main()
