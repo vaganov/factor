@@ -11,7 +11,7 @@ class degree (Structure): # factor.h
 
 def main ():
     usage = "%prog [ [ --raw ] [ --linebreak ] [ --threads=NUMBER ] NUMBER [ NUMBER ... ] | --benchmark | --version | --help ]"
-    version = "%prog 1.6"
+    version = "%prog 1.7"
     parser = OptionParser(usage = usage, version = version)
     parser.add_option("--raw", "-r",
                       action = "store_true",

@@ -26,10 +26,13 @@ factor_globals.o: factor_globals.c factor_globals.h Makefile
 	$(CC) $(CFLAGS) factor_globals.c -o factor_globals.o
 factor_threads_mutex.o: factor_threads_mutex.c factor_globals.h Makefile
 	$(CC) $(CFLAGS) factor_threads_mutex.c -o factor_threads_mutex.o
-D.h:	bootstrap small_primes.csv Makefile
-	./bootstrap
-a.csv:	bootstrap small_primes.csv Makefile
-	./bootstrap
+D.h:	bootstrap.py small_primes.csv Makefile
+	./bootstrap.py
+a.csv:	bootstrap.py small_primes.csv Makefile
+	./bootstrap.py
+bootstrap: libfactor.so
+	./bootstrap.py
+	make
 clean:
 	rm -f $(lib_objs)
 	rm -f D.h
