@@ -48,7 +48,13 @@ def main ():
         sys.stderr.write("cannot link \"%s\" (check LD_LIBRARY_PATH)\n" % libname)
         return 1
 
-    threads = c_uint32(options.threads)
+    if options.threads < 0:
+        sys.stderr.write("number of threads cannot be negative\n")
+        return 1
+    if options.threads < 2 ** 32:
+        threads = c_uint32(options.threads)
+    else:
+        threads = c_uint32(0) # unlimited number of threads
     set_factor_threads = libfactor.set_factor_threads # factor.h
     set_factor_threads.argtypes = [c_uint32]
     set_factor_threads.restype = None
