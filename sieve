@@ -19,10 +19,9 @@ def main ():
     file = open("D.h", "w")
     file.write("#define D %d" % P)
     file.close()
-
-    libname = "libfactor.so"
+ 
     try:
-        libfactor = cdll.LoadLibrary(libname)
+        libfactor = cdll.LoadLibrary("./libfactor.so")
     except OSError:
         bootstrap = False
     else:

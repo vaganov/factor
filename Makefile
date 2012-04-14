@@ -4,6 +4,17 @@ LIBS = -lpthread
 LDFLAGS = -shared -mimpure-text
 AR = ar
 ARFLAGS = -rc
+MKDIR = mkdir -p
+INSTALL = install
+RM = rm -f
+
+prefix = /usr/local
+bin_dir = $(prefix)/bin
+lib_dir = $(prefix)/lib
+include_dir = $(prefix)/include
+man_dir = $(prefix)/share/man
+man1_dir = $(man_dir)/man1
+man3_dir = $(man_dir)/man3
 
 objs = seek.o factor_thread_routine.o factor.o set_factor_threads.o factor_globals.o factor_threads_mutex.o
 
@@ -33,7 +44,20 @@ a.csv:	sieve small_primes.csv
 bootstrap: libfactor.so
 	./sieve
 	make
+install:
+	$(MKDIR) $(bin_dir)
+	$(INSTALL) -m 0755 factor $(bin_dir)
+	$(MKDIR) $(lib_dir)
+	$(INSTALL) -m 0755 libfactor.so $(lib_dir)
+	$(INSTALL) -m 0644 libfactor.a $(lib_dir)
+	$(MKDIR) $(include_dir)
+	$(INSTALL) -m 0644 factor.h $(include_dir)
+	$(MKDIR) $(man1_dir)
+	$(INSTALL) -m 0644 factor.1 $(man1_dir)
+	$(MKDIR) $(man3_dir)
+	$(INSTALL) -m 0644 factor.3 $(man3_dir)
+	$(INSTALL) -m 0644 set_factor_threads.3 $(man3_dir)
 clean:
-	rm -f $(objs)
-	rm -f D.h
-	rm -f a.csv
+	$(RM) $(objs)
+	$(RM) D.h
+	$(RM) a.csv
