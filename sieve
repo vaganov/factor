@@ -28,10 +28,6 @@ def main ():
         bootstrap = True
 
     if bootstrap:
-        set_factor_threads = libfactor.set_factor_threads # factor.h
-        set_factor_threads.argtypes = [c_uint32]
-        set_factor_threads.restype = None
-        set_factor_threads(c_uint32(1)) # main thread only
         factor = libfactor.factor # factor.h
         factor.argtypes = [c_uint64, POINTER(degree), POINTER(c_uint64)]
         factor.restype = c_uint32
