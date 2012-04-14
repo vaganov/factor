@@ -1,4 +1,4 @@
-.TH set_factor_threads 3 "8 Apr. 2012"
+.TH set_factor_threads 3 "14 Apr. 2012"
 .SH NAME
 \fBset_factor_threads\fR \- set the number of threads used by \fBfactor()\fR
 .SH SYNOPSIS
@@ -6,7 +6,7 @@
 .P
 \fBvoid set_factor_threads (uint32_t \fIthreads\fB);
 .SH DESCRIPTION
-\fBset_factor_threads()\fR sets the number of threads used by \fBfactor()\fR to \fIthreads\fR; thus, if \fIthreads\fB = 1\fR, no new threads will be created; if \fIthreads\fB = 0\fR, \fBfactor()\fR will not limit the number of threads - this is the default behavour
+\fBset_factor_threads()\fR sets the number of threads used by \fBfactor()\fR to \fIthreads\fR; thus, if \fIthreads\fB = 1\fR, no new threads will be created - this is the default behavour; if \fIthreads\fB = 0\fR, \fBfactor()\fR will not limit the number of threads
 .SH SEE ALSO
 \fBfactor\fR(3)
 .SH AUTHOR
