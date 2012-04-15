@@ -1,12 +1,22 @@
 #!/usr/bin/python
 
+import sys
 from ctypes import *
+from optparse import OptionParser
 
 class degree (Structure): # factor.h
     _fields_ = [("p", c_uint32),
                 ("b", c_uint32)]
 
 def main ():
+    parser = OptionParser()
+    parser.add_option("--bootstrap",
+                      action = "store_true",
+                      dest = "bootstrap",
+                      default = False,
+                      help = "use libfactor.so to build better sieve")
+    (options, args) = parser.parse_args()
+
     file = open("small_primes.csv", "r")
     string = file.readline()
     file.close()
@@ -19,21 +29,20 @@ def main ():
     file = open("D.h", "w")
     file.write("#define D %d" % P)
     file.close()
- 
-    try:
-        libfactor = cdll.LoadLibrary("./libfactor.so")
-    except OSError:
-        bootstrap = False
-    else:
-        bootstrap = True
 
-    if bootstrap:
+    if options.bootstrap:
+        libname = "./libfactor.so"
+        try:
+            libfactor = cdll.LoadLibrary(libname)
+        except OSError:
+            sys.stderr.write("cannot link \"%s\"\n" % libname)
+            return 1
         factor = libfactor.factor # factor.h
         factor.argtypes = [c_uint64, POINTER(degree), POINTER(c_uint64)]
         factor.restype = c_uint32
 
     file = open("a.csv", "w")
-    if bootstrap:
+    if options.bootstrap:
         A = 1
         while True:
             d = (degree * 9)() # enough for n < 2^32
@@ -53,7 +62,7 @@ def main ():
             if n % p == 0:
                 break
         else:
-            if bootstrap:
+            if options.bootstrap:
                 A = 0
                 while True:
                     d = (degree * 9)() # enough for n < 2^32

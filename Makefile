@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -ansi -c -I. -O3 -fPIC
+CFLAGS = -ansi -c -O3 -fPIC
 LIBS = -lpthread
 LDFLAGS = -shared -mimpure-text
 AR = ar
@@ -42,7 +42,7 @@ D.h:	sieve small_primes.csv
 a.csv:	sieve small_primes.csv
 	./sieve
 bootstrap: libfactor.so
-	./sieve
+	./sieve --bootstrap
 	make
 install:
 	$(MKDIR) $(bin_dir)
