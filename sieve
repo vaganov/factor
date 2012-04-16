@@ -26,6 +26,7 @@ def main ():
     P = 1
     for p in small_primes:
         P *= p
+
     file = open("D.h", "w")
     file.write("#define D %d" % P)
     file.close()
@@ -81,6 +82,8 @@ def main ():
             else:
                 file.write(",\n%d" % n)
     file.close()
+
+    return 0
 
 if __name__ == "__main__":
     main()
