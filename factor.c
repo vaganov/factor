@@ -37,13 +37,14 @@ uint32_t factor (uint64_t n, struct degree* d, uint64_t* r) {
         return k;
     }
     for (i = 0; i < K; ++i) {
+        p = small_primes[i];
         b = 0;
-        while (n % small_primes[i] == 0) {
-            n /= small_primes[i];
+        while (n % p == 0) {
+            n /= p;
             ++b;
         }
         if (b != 0) {
-            d[k].p = small_primes[i];
+            d[k].p = p;
             d[k].b = b;
             ++k;
         }
