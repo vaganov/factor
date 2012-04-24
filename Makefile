@@ -58,6 +58,7 @@ install:
 	$(INSTALL) -m 0644 factor.3 $(man3_dir)
 	$(INSTALL) -m 0644 set_factor_threads.3 $(man3_dir)
 clean:
+	$(RM) *~
 	$(RM) $(objs)
 	$(RM) D.h
 	$(RM) a.csv
