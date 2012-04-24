@@ -1,22 +1,21 @@
 #include "seek.h"
 #include "D.h"
 
-uint32_t seek (uint64_t n, uint32_t a) {
-    uint64_t _a;
-    if (a == 0) {
-        return 0;
+void seek (const mpz_t n, mpz_t a) {
+    mpz_t sqrt_n;
+    if (mpz_sgn(a) == 0) {
+        return;
     }
+    mpz_init(sqrt_n);
+    mpz_sqrt(sqrt_n, n);
     while (1) {
-        if (n % a == 0) {
-            return a;
+        if (mpz_divisible_p(n, a)) {
+            return;
         }
-        a += D;
-        if (a < D) {
-            return 0;
-        }
-        _a = a;
-        if (_a * _a > n) {
-            return 0;
+        mpz_add_ui(a, a, D);
+        if (mpz_cmp(a, sqrt_n) > 0) {
+            mpz_set_ui(a, 0);
+            return;
         }
     }
 }

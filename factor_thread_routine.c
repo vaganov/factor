@@ -19,6 +19,6 @@ void* factor_thread_routine (void* p) {
         if (done) {
             return 0;
         }
-        arg->a[job] = seek(arg->n, arg->a[job]);
+        seek(arg->n, arg->a[job]);
     }
 }

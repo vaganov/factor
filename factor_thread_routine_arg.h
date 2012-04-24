@@ -3,12 +3,13 @@
 
 #include <pthread.h>
 #include <stdint.h>
+#include <gmp.h>
 
 struct factor_thread_routine_arg {
     pthread_mutex_t* mutex;
     uint32_t jobs_left;
-    uint64_t n;
-    uint32_t* a;
+    mpz_t n;
+    mpz_t* a;
 };
 
 #endif

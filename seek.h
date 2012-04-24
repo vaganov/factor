@@ -1,8 +1,8 @@
 #ifndef _SEEK_H
 #define _SEEK_H
 
-#include <stdint.h>
+#include <gmp.h>
 
-uint32_t seek (uint64_t, uint32_t);
+void seek (const mpz_t, mpz_t);
 
 #endif

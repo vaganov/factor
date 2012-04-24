@@ -2,9 +2,10 @@
 #define _FACTOR_H
 
 #include <stdint.h>
+#include <gmp.h>
 
 struct degree {
-    uint32_t p;
+    mpz_t p;
     uint32_t b;
 };
 
@@ -12,7 +13,7 @@ struct degree {
 extern "C" {
 #endif
 
-uint32_t factor (uint64_t n, struct degree* d, uint64_t* r);
+uint32_t factor (const mpz_t n, struct degree* d);
 
 void set_factor_threads (uint32_t threads);
 

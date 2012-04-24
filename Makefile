@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -ansi -c -O3 -fPIC
-LIBS = -lpthread
+LIBS = -lpthread -lgmp
 LDFLAGS = -shared -mimpure-text
 AR = ar
 ARFLAGS = -rc
